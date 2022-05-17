@@ -46,7 +46,7 @@ TERMINAL = ['kitty', '--']          # or ['st', '-e'] or something like that
 CONFIG = {
     'BROWSER_PATH' : {
         'chrome' : ['google-chrome-stable'],
-        'firefox' : ['firefox'],
+        'firefox' : ['firefox-developer-edition'],
         'chromium' : ['chromium-browser'],
         'brave' : ['brave-browser'],
         'lynx' : TERMINAL + ['lynx']

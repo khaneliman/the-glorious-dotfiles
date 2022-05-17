@@ -35,7 +35,7 @@ local tags = {
 		icon = icons.multimedia,
 		default_app = apps.default.multimedia,
 		gap = beautiful.useless_gap,
-		layout = awful.layout.suit.floating,
+		layout = awful.layout.suit.max,
 		gap = 0
 	},
 	{
@@ -43,7 +43,7 @@ local tags = {
 		icon = icons.games,
 		default_app = apps.default.game,
 		gap = beautiful.useless_gap,
-		layout = awful.layout.suit.floating
+		layout = awful.layout.suit.max
 	},
 	{
 		type = 'graphics',
@@ -63,7 +63,7 @@ local tags = {
 		icon = icons.development,
 		default_app = apps.default.development,
 		gap = beautiful.useless_gap,
-		layout = awful.layout.suit.floating
+		layout = awful.layout.suit.tile
 	}
 	-- {
 	--   type = 'social',
@@ -86,7 +86,7 @@ tag.connect_signal(
 	end
 )
 
--- Create tags for each screen
+-- Create tags for  screen
 screen.connect_signal(
 	'request::desktop_decoration',
 	function(s)

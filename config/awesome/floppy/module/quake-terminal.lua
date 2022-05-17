@@ -13,20 +13,22 @@ local quake_properties = function()
 		skip_decoration = true,
 		titlebars_enabled = false,
 		switch_to_tags = false,
-		opacity = 0.95,
+		opacity = 0.8,
 		floating = true,
 		skip_taskbar = true,
 		ontop = true,
 		above = true,
 		sticky = true,
 		hidden = not quake_opened,
-		maximized_horizontal = true,
+		height = mouse.screen.workarea.height * 0.5,
+		width = mouse.screen.workarea.width * 0.5,
 		skip_center = true,
 		round_corners = false,
 		keys = client_keys,
 		buttons = client_buttons,
 		placement = awful.placement.top,
-		shape = beautiful.client_shape_rectangle
+		shape = beautiful.client_shape_rectangle,
+    	tag = mouse.screen.selected_tag
 	}
 end
 

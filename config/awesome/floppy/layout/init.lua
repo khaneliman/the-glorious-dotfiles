@@ -3,6 +3,11 @@ local left_panel = require('layout.left-panel')
 local top_panel = require('layout.top-panel')
 local right_panel = require('layout.right-panel')
 
+awful.screen.set_auto_dpi_enabled( true )
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+
+
 -- Create a wibox panel for each screen and add it
 screen.connect_signal(
 	'request::desktop_decoration',

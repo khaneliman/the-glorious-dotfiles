@@ -8,21 +8,21 @@ return {
 		-- Default terminal emulator
 		terminal = 'kitty',
 		-- Default web browser
-		web_browser = 'firefox',
+		web_browser = 'firefox-developer-edition',
 		-- Default text editor
-		text_editor = 'subl3',
+		text_editor = 'kate',
 		-- Default file manager
-		file_manager = 'dolphin',
+		file_manager = 'nemo',
 		-- Default media player
 		multimedia = 'vlc',
 		-- Default game, can be a launcher like steam
-		game = 'supertuxkart',
+		game = 'steam',
 		-- Default graphics editor
 		graphics = 'gimp-2.10',
 		-- Default sandbox
-		sandbox = 'virtualbox',
+		sandbox = 'virt-manager',
 		-- Default IDE
-		development = '',
+		development = 'visual-studio-code',
 		-- Default network manager
 		network_manager = 'kitty iwctl',
 		-- Default bluetooth manager
@@ -30,7 +30,7 @@ return {
 		-- Default power manager
 		power_manager = 'xfce4-power-manager',
 		-- Default GUI package manager
-		package_manager = 'pamac-manager',
+		package_manager = 'alacritty -e topgrade',
 		-- Default locker
 		lock = 'awesome-client "awesome.emit_signal(\'module::lockscreen_show\')"',
 		-- Default quake terminal
@@ -54,24 +54,27 @@ return {
 		-- Compositor
 		'picom -b --experimental-backends --dbus --config ' ..
 		config_dir .. '/configuration/picom.conf',
+		-- Load X colors
+		'xrdb $HOME/.Xresources',
+		-- Polkit and keyring
+		'/usr/lib/polkit-kde-authentication-agent-1 &' ..
+		' eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)',
+		-- Audio equalizer
+		'pulseeffects --gapplication-service',
 		-- Blueman applet
 		'blueman-applet',
 		-- Music server
-		'mpd',
-		-- Polkit and keyring
-		'/usr/bin/lxqt-policykit-agent &' ..
-		' eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)',
-		-- Load X colors
-		'xrdb $HOME/.Xresources',
-		-- Audio equalizer
-		'pulseeffects --gapplication-service',
+		-- 'mpd',
 		-- Lockscreen timer
 		[[
 		xidlehook --not-when-fullscreen --not-when-audio --timer 600 \
 		"awesome-client 'awesome.emit_signal(\"module::lockscreen_show\")'" ""
-		]]
-
-		-- You can add more start-up applications here
+		]],
+		-- Corsair keyboard driver
+		'ckb-next -b',
+		-- RGB software
+		'openrgb --startminimized --profile Default'
+		-- EWS server (moved to systemd service)
 	},
 
 	-- List of binaries/shell scripts that will execute for a certain task

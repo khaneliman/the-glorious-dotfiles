@@ -17,14 +17,14 @@ return {
 			-- City ID
 			city_id = '',
 			-- Units
-			units = 'metric',
+			units = 'imperial',
 			-- Update in N seconds
 			update_interval = 1200
 		},
 
 		network = {
 			-- Wired interface
-			wired_interface = 'enp0s0',
+			wired_interface = 'enp5s0',
 			-- Wireless interface
 			wireless_interface = 'wlan0'
 		},
@@ -36,7 +36,7 @@ return {
 
 		screen_recorder = {
 			-- Default record dimension
-			resolution = '1366x768',
+			resolution = '1920x1080',
 			-- X,Y coordinate
 			offset = '0,0',
 			-- Enable audio by default
@@ -83,7 +83,7 @@ return {
 
 		lockscreen = {
 			-- Clock format
-			military_clock = true,
+			military_clock = false,
 			-- Default password if there's no PAM integration
 			fallback_password = 'toor',
 			-- Capture intruder using webcam

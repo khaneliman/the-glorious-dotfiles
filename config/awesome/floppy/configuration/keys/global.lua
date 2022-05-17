@@ -210,7 +210,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioRaiseVolume',
 		function()
-			awful.spawn('amixer -D pulse sset Master 5%+', false)
+			awful.spawn('amixer -D pipewire sset Master 5%+', false)
 			awesome.emit_signal('widget::volume')
 			awesome.emit_signal('module::volume_osd:show', true)
 		end,
@@ -220,7 +220,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioLowerVolume',
 		function()
-			awful.spawn('amixer -D pulse sset Master 5%-', false)
+			awful.spawn('amixer -D pipewire sset Master 5%-', false)
 			awesome.emit_signal('widget::volume')
 			awesome.emit_signal('module::volume_osd:show', true)
 		end,
@@ -230,7 +230,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioMute',
 		function()
-			awful.spawn('amixer -D pulse set Master 1+ toggle', false)
+			awful.spawn('amixer -D pipewire set Master 1+ toggle', false)
 		end,
 		{description = 'toggle mute', group = 'hotkeys'}
 	),
@@ -238,7 +238,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioNext',
 		function()
-			awful.spawn('mpc next', false)
+			awful.spawn('playerctl next', false)
 		end,
 		{description = 'next music', group = 'hotkeys'}
 	),
@@ -246,7 +246,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioPrev',
 		function()
-			awful.spawn('mpc prev', false)
+			awful.spawn('playerctl previous', false)
 		end,
 		{description = 'previous music', group = 'hotkeys'}
 	),
@@ -254,7 +254,7 @@ local global_keys = awful.util.table.join(
 		{},
 		'XF86AudioPlay',
 		function()
-			awful.spawn('mpc toggle', false)
+			awful.spawn('playerctl play-pause', false)
 		end,
 		{description = 'play/pause music', group = 'hotkeys'}
 

@@ -154,8 +154,7 @@ ruled.client.connect_signal(
 					'Tor Browser',
 					'discord',
 					'Chromium',
-					'Google-chrome',
-					'TelegramDesktop'
+					'Google-chrome'
 				}
 			},
 			properties = {
@@ -168,10 +167,10 @@ ruled.client.connect_signal(
 			id = 'text',
 			rule_any = {
 				class = {
-					'Geany',
-					'Atom',
-					'Subl3',
-					'code-oss'
+					'TelegramDesktop',
+					'Thunderbird',
+					'Discord',
+					'teams'
 				},
 				name  = {
 					'LibreOffice',
@@ -191,7 +190,8 @@ ruled.client.connect_signal(
 					'dolphin',
 					'ark',
 					'Nemo',
-					'File-roller'
+					'File-roller',
+					'thunar'
 				}
 			},
 			properties = {
@@ -244,7 +244,10 @@ ruled.client.connect_signal(
 				class = {
 					'Gimp-2.10',
 					'Inkscape',
-					'Flowblade'
+					'Flowblade',
+					'Darktable',
+					'Blender',
+					'Digikam'
 				}
 			},
 			properties = {
@@ -278,7 +281,10 @@ ruled.client.connect_signal(
 					'UnityHub',
 					'jetbrains-studio',
 					'Ettercap',
-					'scrcpy'
+					'scrcpy',
+					'visual-studio-code',
+					'qtcreator',
+					'kdevelop'
 				}
 			},
 			properties = {

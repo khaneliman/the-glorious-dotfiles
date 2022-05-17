@@ -114,7 +114,7 @@ local ffmpeg_start_recording = function(audio, filename)
 
 	if audio then
 		turn_on_the_mic()
-		add_audio_str = '-f pulse -ac 2 -i default' 
+		add_audio_str = '-f pipewire -ac 2 -i default' 
 	end
 
 	ffmpeg_pid = awful.spawn.easy_async_with_shell(
