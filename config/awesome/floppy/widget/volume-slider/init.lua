@@ -7,12 +7,15 @@ local dpi = beautiful.xresources.apply_dpi
 local icons = require('theme.icons')
 local clickable_container = require('widget.clickable-container')
 
+local prev_value = 50 
+
 local icon = wibox.widget {
 	layout = wibox.layout.align.vertical,
 	expand = 'none',
 	nil,
 	{
-		image = icons.volume,
+		id = 'icon',
+		image = icons.volume_high,
 		resize = true,
 		widget = wibox.widget.imagebox
 	},
@@ -63,6 +66,14 @@ volume_slider:connect_signal(
 			volume_level .. '%',
 			false
 		)
+
+		if volume_level > 0 and volume_level < 50 then
+			icon.icon:set_image(icons.volume_low)
+		elseif volume_level >= 50 and volume_level < 100 then
+			icon.icon:set_image(icons.volume_high)
+		else
+			icon.icon:set_image(icons.volume_none)
+		end
 
 		-- Update volume osd
 		awesome.emit_signal(
@@ -115,19 +126,21 @@ end
 -- Update on startup
 update_slider()
 
-local action_jump = function()
+local toggleMute = function()
 	local sli_value = volume_slider:get_value()
 	local new_value = 0
 
-	if sli_value >= 0 and sli_value < 50 then
-		new_value = 50
-	elseif sli_value >= 50 and sli_value < 100 then
-		new_value = 100
-	else
+	if sli_value > 0 then
 		new_value = 0
+	else
+		new_value = prev_value
 	end
+
+	prev_value = sli_value
+
 	volume_slider:set_value(new_value)
 end
+
 
 action_level:buttons(
 	awful.util.table.join(
@@ -136,7 +149,7 @@ action_level:buttons(
 			1,
 			nil,
 			function()
-				action_jump()
+				toggleMute()
 			end
 		)
 	)

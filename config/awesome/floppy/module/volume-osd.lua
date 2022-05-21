@@ -90,7 +90,7 @@ awesome.connect_signal(
 
 local icon = wibox.widget {
 	{
-		image = icons.volume,
+		image = icons.volume_high, -- TODO: set dynamic on volume
 		resize = true,
 		widget = wibox.widget.imagebox
 	},
