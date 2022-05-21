@@ -63,7 +63,7 @@ local tags = {
 		icon = icons.development,
 		default_app = apps.default.development,
 		gap = beautiful.useless_gap,
-		layout = awful.layout.suit.tile
+		layout = awful.layout.suit.max
 	}
 	-- {
 	--   type = 'social',

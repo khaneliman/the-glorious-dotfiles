@@ -21,6 +21,9 @@ local config_dir = gears.filesystem.get_configuration_dir()
 local widget_icon_dir = config_dir .. 'widget/network/icons/'
 local config = require('configuration.config')
 
+local notifications = require('module.notifications')
+
+
 -- Configuration
 local interfaces = {
 	wlan_interface = config.widget.network.wireless_interface or 'wlan0',
@@ -28,6 +31,7 @@ local interfaces = {
 }
 
 local network_mode = nil
+local notif
 
 local return_button = function()
 
@@ -115,12 +119,13 @@ local return_button = function()
 	end
 
 	local network_notify = function(message, title, app_name, icon)
-		naughty.notification({ 
+		notif = notifications.notify_dwim({ 
 			message = message,
 			title = title,
 			app_name = app_name,
 			icon = icon
-		})
+		}, notif)
+
 	end
 
 	-- Wireless mode / Update

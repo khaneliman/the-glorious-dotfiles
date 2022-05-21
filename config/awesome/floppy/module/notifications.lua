@@ -8,10 +8,14 @@ local beautiful = require('beautiful')
 local dpi = beautiful.xresources.apply_dpi
 local clickable_container = require('widget.clickable-container')
 
+local notifications = {}
+
 -- Defaults
 naughty.config.defaults.ontop = true
 naughty.config.defaults.icon_size = dpi(32)
 naughty.config.defaults.timeout = 5
+naughty.config.presets.low.timeout = 2
+naughty.config.presets.critical.timeout = 12
 naughty.config.defaults.title = 'System Notification'
 naughty.config.defaults.margin = dpi(16)
 naughty.config.defaults.border_width = 0
@@ -255,3 +259,19 @@ naughty.connect_signal(
 
 	end
 )
+
+function notifications.notify_dwim(args, notif)
+    local n = notif
+    if n and not n._private.is_destroyed and not n.is_expired then
+        notif.title = args.title or notif.title
+        notif.message = args.message or notif.message
+        -- notif.text = args.text or notif.text
+        notif.icon = args.icon or notif.icon
+        notif.timeout = args.timeout or notif.timeout
+    else
+        n = naughty.notification(args)
+    end
+    return n
+end
+
+return notifications;
