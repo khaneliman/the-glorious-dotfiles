@@ -45,6 +45,30 @@ local slider_osd = wibox.widget {
 
 local vol_osd_slider = slider_osd.vol_osd_slider
 
+
+local icon = wibox.widget {
+	{
+		id = 'icon',
+		image = icons.volume_high,
+		resize = true,
+		widget = wibox.widget.imagebox
+	},
+	top = dpi(12),
+	bottom = dpi(12),
+	widget = wibox.container.margin
+}
+
+local volume_slider_osd = wibox.widget {
+	icon,
+	slider_osd,
+	spacing = dpi(24),
+	layout = wibox.layout.fixed.horizontal
+}
+
+local osd_height = dpi(100)
+local osd_width = dpi(300)
+local osd_margin = dpi(10)
+
 vol_osd_slider:connect_signal(
 	'property::value',
 	function()
@@ -53,6 +77,14 @@ vol_osd_slider:connect_signal(
 
 		-- Update textbox widget text
 		osd_value.text = volume_level .. '%'
+
+		if volume_level > 0 and volume_level < 50 then
+			icon.icon:set_image(icons.volume_low)
+		elseif volume_level >= 50 and volume_level < 100 then
+			icon.icon:set_image(icons.volume_high)
+		else
+			icon.icon:set_image(icons.volume_none)
+		end
 
 		-- Update the volume slider if values here change
 		awesome.emit_signal('widget::volume:update', volume_level)
@@ -87,28 +119,6 @@ awesome.connect_signal(
 		vol_osd_slider:set_value(volume)
 	end
 )
-
-local icon = wibox.widget {
-	{
-		image = icons.volume_high, -- TODO: set dynamic on volume
-		resize = true,
-		widget = wibox.widget.imagebox
-	},
-	top = dpi(12),
-	bottom = dpi(12),
-	widget = wibox.container.margin
-}
-
-local volume_slider_osd = wibox.widget {
-	icon,
-	slider_osd,
-	spacing = dpi(24),
-	layout = wibox.layout.fixed.horizontal
-}
-
-local osd_height = dpi(100)
-local osd_width = dpi(300)
-local osd_margin = dpi(10)
 
 screen.connect_signal(
 	'request::desktop_decoration',
@@ -265,4 +275,33 @@ awesome.connect_signal(
 			end
 		end
 	end
+)
+
+
+local toggleMute = function()
+	local sli_value = vol_osd_slider:get_value()
+	local new_value = 0
+
+	if sli_value > 0 then
+		new_value = 0
+	else
+		new_value = prev_value
+	end
+
+	prev_value = sli_value
+
+	vol_osd_slider:set_value(new_value)
+end
+
+volume_slider_osd:buttons(
+	awful.util.table.join(
+		awful.button(
+			{},
+			1,
+			nil,
+			function()
+				toggleMute()
+			end
+		)
+	)
 )
