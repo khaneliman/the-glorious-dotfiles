@@ -45,14 +45,7 @@ local return_button = function()
 				1,
 				nil,
 				function()
-					
-					if update_available then
-						awful.spawn(apps.default.package_manager .. ' --updates', false)
-					
-					else
-						awful.spawn(apps.default.package_manager, false)
-					
-					end
+					awful.spawn(apps.default.package_manager, false)
 				end
 			)
 		)
@@ -82,10 +75,15 @@ local return_button = function()
 		'checkupdates',
 		60,
 		function(_, stdout)
-			number_of_updates_available = tonumber(stdout:match('.-\n'):match('%d*'))
+
+			-- Check if there is an update available by counting lines in output
+			local __, replacements = string.gsub(stdout, "\n", "\n")
+			number_of_updates_available = tonumber(replacements)
 			update_package = stdout
+
+			-- Toggle icon depending on whether there is an update available
 			local icon_name = nil
-			if number_of_updates_available ~= nil then
+			if number_of_updates_available > 0 then
 				update_available = true
 				icon_name = 'package-up'
 			else
@@ -94,6 +92,7 @@ local return_button = function()
 				
 			end
 
+			-- Update widget icon
 			widget.icon:set_image(widget_icon_dir .. icon_name .. '.svg')
 			collectgarbage('collect')
 		end
