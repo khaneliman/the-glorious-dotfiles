@@ -1,7 +1,7 @@
 ### Directories ###
 ncmpcpp_directory = ~/.config/ncmpcpp
 lyrics_directory  = ~/.config/ncmpcpp/lyrics
-mpd_music_dir     = ~/music
+mpd_music_dir     = ~/Music
 
 ### Behaviour ###
 message_delay_time = 1
@@ -12,7 +12,7 @@ allow_for_physical_item_deletion = "no"
 
 ### Integration with external programs ###
 execute_on_song_change = "bash ~/.config/ncmpcpp/music-notify.sh"
-external_editor = "vim"
+external_editor = "micro"
 use_console_editor = yes
 mouse_support = "yes"
 mouse_list_scroll_whole_page = "no"
