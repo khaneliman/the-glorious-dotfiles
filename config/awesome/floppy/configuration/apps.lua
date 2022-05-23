@@ -60,7 +60,8 @@ return {
 		'/usr/lib/polkit-kde-authentication-agent-1 &' ..
 		' eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)',
 		-- Audio equalizer
-		'pulseeffects --gapplication-service',
+		-- 'pulseeffects --gapplication-service',
+		'easyeffects --gapplication-service',
 		-- Blueman applet
 		'blueman-applet',
 		-- Music server
