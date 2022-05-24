@@ -73,13 +73,13 @@ local volume_check = function()
 	awful.spawn.easy_async_with_shell("amixer get Master | tail -2 | grep -c '\\[off\\]'", function(stdout, stderr, reason, exit_code)
 		local muted = tonumber(stdout)
 		local volume_level = vol_osd_slider:get_value()
-		
+
 		-- Update textbox widget text
 		osd_value.text = volume_level .. '%'
 
 		if muted > 0 then
-				icon.icon:set_image(icons.volume_mute)
-				osd_value.text = 'Muted'
+			icon.icon:set_image(icons.volume_mute)
+			osd_value.text = 'Muted'
 		elseif volume_level == 0 then
 			icon.icon:set_image(icons.volume_none)
 		elseif volume_level > 0 and volume_level < 50 then

@@ -54,8 +54,24 @@ local slider = wibox.widget {
 	layout = wibox.layout.align.vertical
 }
 
-
 local volume_slider = slider.volume_slider
+
+local volume_check = function()
+	awful.spawn.easy_async_with_shell("amixer get Master | tail -2 | grep -c '\\[off\\]'", function(stdout, stderr, reason, exit_code)
+		local muted = tonumber(stdout)
+		local volume_level = volume_slider:get_value()
+
+		if muted > 0 then
+			icon.icon:set_image(icons.volume_mute)
+		elseif volume_level == 0 then
+			icon.icon:set_image(icons.volume_none)
+		elseif volume_level > 0 and volume_level < 50 then
+			icon.icon:set_image(icons.volume_low)
+		elseif volume_level >= 50 and volume_level < 100 then
+			icon.icon:set_image(icons.volume_high)
+		end
+	end)
+end
 
 volume_slider:connect_signal(
 	'property::value',
@@ -67,13 +83,7 @@ volume_slider:connect_signal(
 			false
 		)
 
-		if volume_level > 0 and volume_level < 50 then
-			icon.icon:set_image(icons.volume_low)
-		elseif volume_level >= 50 and volume_level < 100 then
-			icon.icon:set_image(icons.volume_high)
-		else
-			icon.icon:set_image(icons.volume_none)
-		end
+		volume_check()
 
 		-- Update volume osd
 		awesome.emit_signal(
@@ -119,8 +129,22 @@ local update_slider = function()
 		function(stdout)
 			local volume = string.match(stdout, '(%d?%d?%d)%%')
 			volume_slider:set_value(tonumber(volume))
-		end
+		end 
 	)
+	awful.spawn.easy_async_with_shell("amixer get Master | tail -2 | grep -c '\\[off\\]'", function(stdout, stderr, reason, exit_code)
+		local muted = tonumber(stdout)
+		local volume_level = volume_slider:get_value()
+
+		if muted > 0 then
+			icon.icon:set_image(icons.volume_mute)
+		elseif volume_level == 0 then
+			icon.icon:set_image(icons.volume_none)
+		elseif volume_level > 0 and volume_level < 50 then
+			icon.icon:set_image(icons.volume_low)
+		elseif volume_level >= 50 and volume_level < 100 then
+			icon.icon:set_image(icons.volume_high)
+		end
+	end)
 end
 
 -- Update on startup
@@ -129,6 +153,8 @@ update_slider()
 local toggleMute = function()
 	local sli_value = volume_slider:get_value()
 	local new_value = 0
+
+	awful.spawn('amixer -D pipewire set Master 1+ toggle', false)
 
 	if sli_value > 0 then
 		new_value = 0
