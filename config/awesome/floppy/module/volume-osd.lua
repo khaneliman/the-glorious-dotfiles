@@ -69,22 +69,32 @@ local osd_height = dpi(100)
 local osd_width = dpi(300)
 local osd_margin = dpi(10)
 
+local volume_check = function()
+	awful.spawn.easy_async_with_shell("amixer get Master | tail -2 | grep -c '\\[off\\]'", function(stdout, stderr, reason, exit_code)
+		local muted = tonumber(stdout)
+		local volume_level = vol_osd_slider:get_value()
+		
+		-- Update textbox widget text
+		osd_value.text = volume_level .. '%'
+
+		if muted > 0 then
+				icon.icon:set_image(icons.volume_mute)
+				osd_value.text = 'Muted'
+		elseif volume_level == 0 then
+			icon.icon:set_image(icons.volume_none)
+		elseif volume_level > 0 and volume_level < 50 then
+			icon.icon:set_image(icons.volume_low)
+		elseif volume_level >= 50 and volume_level < 100 then
+			icon.icon:set_image(icons.volume_high)
+		end
+	end)
+end
+
 vol_osd_slider:connect_signal(
 	'property::value',
 	function()
 		local volume_level = vol_osd_slider:get_value()
 		awful.spawn('amixer -D pipewire sset Master ' .. volume_level .. '%', false)
-
-		-- Update textbox widget text
-		osd_value.text = volume_level .. '%'
-
-		if volume_level > 0 and volume_level < 50 then
-			icon.icon:set_image(icons.volume_low)
-		elseif volume_level >= 50 and volume_level < 100 then
-			icon.icon:set_image(icons.volume_high)
-		else
-			icon.icon:set_image(icons.volume_none)
-		end
 
 		-- Update the volume slider if values here change
 		awesome.emit_signal('widget::volume:update', volume_level)
@@ -262,6 +272,7 @@ awesome.connect_signal(
 	'module::volume_osd:show', 
 	function(bool)
 		placement_placer()
+		volume_check()
 		awful.screen.focused().volume_osd_overlay.visible = bool
 		if bool then
 			awesome.emit_signal('module::volume_osd:rerun')

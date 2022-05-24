@@ -29,6 +29,7 @@ return {
 	volume_high			= dir .. 'volume-high.svg',
 	volume_low			= dir .. 'volume-low.svg',
 	volume_none			= dir .. 'volume-none.svg',
+	volume_mute			= dir .. 'volume-mute.svg',
 	brightness 			= dir .. 'brightness-7.svg',
 	effects 			= dir .. 'effects.svg',
 	chart 				= dir .. 'chart-areaspline.svg',
