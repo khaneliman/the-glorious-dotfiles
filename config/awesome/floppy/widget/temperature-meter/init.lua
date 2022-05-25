@@ -55,7 +55,9 @@ awful.spawn.easy_async_with_shell(
 			10,
 			function(_, stdout)
 				local temp = stdout:match('(%d+)')
-				slider.temp_status:set_value((temp / 1000) / max_temp * 100)
+				if (temp) then
+					slider.temp_status:set_value((temp / 1000) / max_temp * 100)
+				end
 				collectgarbage('collect')
 			end
 		)

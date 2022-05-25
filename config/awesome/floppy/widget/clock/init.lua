@@ -11,9 +11,9 @@ local create_clock = function(s)
 
 	local clock_format = nil
 	if not military_mode then
-		clock_format = '<span font="Inter Bold 11">%I:%M %p</span>'
+		clock_format = '<span font="Inter Bold 11">%I:%M %p </span><span font="Inter Bold 9">%d/%m/%y</span>'
 	else
-		clock_format = '<span font="Inter Bold 11">%H:%M</span>'
+		clock_format = '<span font="Inter Bold 11">%H:%M </span><span font="Inter Bold 9">%d/%m/%y</span>'
 	end
 
 	s.clock_widget = wibox.widget.textclock(
